@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Gathering_the_Roses.jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Gathering_the_Roses_jar</output-path>
+    <root id="archive" name="Gathering_the_Roses.jar">
+      <element id="module-output" name="Gathering_the_Roses" />
+      <element id="dir-copy" path="$PROJECT_DIR$/src" />
+      <element id="dir-copy" path="$PROJECT_DIR$/Resources" />
+    </root>
+  </artifact>
+</component>
