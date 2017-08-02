@@ -1,0 +1,18 @@
+Fonts:
+"Scurlock" by The Scriptorium (www.dafont.com)
+"PR Celtic Narrow" by Peter Rempel (www.dafont.com)
+"Pauls Celtic Font 1" by Tattoo Paul (www.dafont.com)
+"Supernatural Knight" by Matthew Walters (www.dafont.com)
+"Elder Futhark" by Curtis Clark (www.dafont.com)
+"Seagram" by zanatlija (www.dafont.com)
+"Cardinal" by Dieter Steffmann (www.dafont.com)
+"Augusta" by Dieter Steffmann (www.dafont.com)
+"Aihara Hude Moji Kaisho" by Aihara Kanata (www.freejapanesefont.com)
+"Morpheus" by Kiwi Media (www.dafont.com)
+"Evenescent" by Aeryn (www.dafont.com)
+
+Language Codes:
+https://msdn.microsoft.com/en-us/library/ms533052%28v=vs.85%29.aspx
+
+Loading Resources from JAR:
+https://stackoverflow.com/questions/20389255/reading-a-resource-file-from-within-jar

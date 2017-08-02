@@ -1,0 +1,250 @@
+package Menus;
+
+import Common.Match;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.*;
+import javafx.stage.Stage;
+
+import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+
+/**
+ * Created by Robin on 6/22/2017.
+ * Starts with the main menu.
+ */
+class MainGame
+{
+
+    private Stage stage;
+    private final Group root = new Group();
+    private final Scene scene;
+
+    private int width, height;
+
+    private final Font FONT_EVANESCENT;
+    private final Font FONT_EVANESCENT_LARGE;
+    private final Font FONT;
+
+    /**
+     * Initial things handled here when MainGame is first initialized.
+     * @param stage - Passed from Main's start method.
+     * win_width and win_height used to determine initial window dimensions.
+     * If win_width and win_height are both zero, the window will be fullscreen.
+     */
+    MainGame(final Stage stage, int win_width, int win_height)
+    {
+        scene = new Scene(root, win_width, win_height, Color.GRAY);
+
+        stage.setTitle("You-Gay-Ho!");
+        stage.setScene(scene);
+
+        // The stage is kept and handled by MainGame from here on.
+        this.stage = stage;
+
+        width = win_width;
+        height = win_height;
+
+        if (win_width == 0 && win_height == 0)
+        {
+            stage.setFullScreen(true);
+        }
+        else
+        {
+            // Window is centered and can't be resized.
+            stage.setResizable(false);
+            stage.setX((Toolkit.getDefaultToolkit().
+                    getScreenSize().width - width) / 2);
+            stage.setY((Toolkit.getDefaultToolkit().
+                    getScreenSize().height - height) / 2);
+        }
+
+        // Set up fonts.
+        FONT_EVANESCENT = setUpFont("./Resources/Fonts/Evanescent/Evanescent.ttf",
+                Math.min(width + (height / 2), height) / 12);
+        FONT_EVANESCENT_LARGE = setUpFont("./Resources/Fonts/Evanescent/Evanescent.ttf",
+                Math.min(width + (height / 2), height) / 8);
+        /* Font size is proportional to either the width or height,
+         * depending on which is smaller. The modifier to the width
+         * is for when the height is significantly higher than the width. */
+        FONT = setUpFont("./Resources/Fonts/Seagram/Seagram.ttf",
+                height / 20);
+        /* Button height is the limiting factor,
+         * and it's proportional only to the scene's/stage's height. */
+    }
+
+    /**
+     * Called by Main after MainGame is initialized.
+     * Begins with setting up the start menu.
+     */
+    void start()
+    {
+        goToMainMenu();
+        stage.show();
+    }
+
+    private void goToMainMenu()
+    {
+        Button[] menuButtons = { new Button("Adventure"), new Button("Versus"),
+                new Button("Inventory"), new Button("Options"), new Button("Quit") };
+        menuButtons[0].setOnAction(event -> {
+            // Start the campaign.
+        });
+        menuButtons[1].setOnAction(event -> {
+            goToVersusMenu();
+        });
+        menuButtons[2].setOnAction(event -> {
+            // Open Inventory.
+        });
+        menuButtons[3].setOnAction(event -> {
+            goToOptionsMenu();
+        });
+        menuButtons[4].setOnAction(event -> goToQuitMenu());
+        setUpMenu("Gathèring\nthç Roses~", FONT_EVANESCENT_LARGE, menuButtons);
+    }
+
+    private void goToVersusMenu()
+    {
+        Button[] menuButtons = { new Button("1 Screen"), new Button("2 Screens") };
+        menuButtons[0].setOnAction(event -> {
+            root.getChildren().clear();
+
+            Stage stages[] = new Stage[1];
+            stages[0] = stage;
+
+            Match match = new Match(stages, scene, root);
+            match.start(width, height);
+        });
+        // TODO: Make options menu take care of stage stuff.
+        menuButtons[1].setOnAction(event -> {
+            root.getChildren().clear();
+
+            Stage stages[] = new Stage[2];
+            stages[0] = stage;
+            stages[1] = new Stage();
+
+            Match match = new Match(stages, scene, root);
+            match.start(width, height);
+        });
+        setUpMenu("\n\n~Setup Menu", FONT_EVANESCENT, menuButtons);
+    }
+
+    private void goToOptionsMenu()
+    {
+        Button[] menuButtons = { new Button("Configure multi-display") };
+        menuButtons[0].setOnAction(event -> {
+            goToSplitScreenMenu();
+        });
+        setUpMenu("\n\n~Options Menu", FONT_EVANESCENT, menuButtons);
+    }
+
+    private void goToSplitScreenMenu()
+    {
+
+    }
+
+    private void goToQuitMenu()
+    {
+        Button[] menuButtons = { new Button("Yes"), new Button("No") };
+        menuButtons[0].setOnAction(event -> {
+            root.getChildren().clear();
+            stage.close();
+            System.exit(0);
+        });
+        menuButtons[1].setOnAction(event -> goToMainMenu());
+        // Put an "\n" to make the text go down.
+        setUpMenu("\nAre you sure\nyou want to leave?", FONT_EVANESCENT, menuButtons);
+    }
+
+    /**
+     * Sets up a simple menu. Do not put more than 5 buttons in the array parameter.
+     * Uses the method arrangeWidgets() to clear the root.
+     */
+    private void setUpMenu(String title, Font titleFont, Button[] buttons)
+    {
+        Text titleText = new Text(title);
+        titleText.setFont(titleFont);
+        titleText.setTextAlignment(TextAlignment.CENTER);
+
+        VBox titlePane = new VBox();
+        titlePane.getChildren().add(titleText);
+        titlePane.setTranslateX((width - titleText.getLayoutBounds().getWidth()) / 2);
+
+        /* arrangeWidgets() places the buttons in their proper locations.
+        *  Its return value is used to properly position the title. */
+        int buttonTopBounds = arrangeWidgets(width, height, buttons);
+
+        // If the text is too low that it overlaps the buttons, we'll move it up.
+        int textBottomBounds = (int) titleText.getLayoutBounds().getHeight();
+
+        // If the bottom of the title is below the top of the first button
+        if (textBottomBounds > buttonTopBounds)
+            titlePane.setTranslateY(buttonTopBounds - textBottomBounds / 5 * 6);
+        // The (/ 5 * 6) modifier is so that there is space between the title and button.
+
+        // arrangeWidgets() clears the root, so titlePane must be added after.
+        root.getChildren().add(titlePane);
+    }
+
+    /**
+     * Used only for menus with 5 or less buttons, a title, and nothing else.
+     * Places widgets proportional to the scene's/stage's width and height.
+     * Will do so using only ints, no floats.
+     * @param width - current window width
+     * @param height - current window height
+     * Returns the position of the top button.
+     */
+    private int arrangeWidgets(int width, int height, Button[] buttons)
+    {
+        int topButtonPosition = 0;
+        root.getChildren().clear();
+
+        /* The width of the spaces on the sides where there are no buttons.
+           Use (width - sideSpace) to get the position of the right-side space. */
+        int sideSpace;
+
+        // Space between buttons.
+        int betweenButtons = height / 35;
+        int buttonHeight = betweenButtons * 3;
+
+        if (width * 2 / 3 > height) sideSpace = (width - height) / 6 * 5;
+        else if (width > height) sideSpace = (width - height) / 2 * 3;
+        else sideSpace = height / 10;
+
+        for (int i = 0; i < buttons.length; i++)
+        {
+            int translateY = betweenButtons * 10 + (i * betweenButtons * 5);
+            buttons[i].setTranslateX(sideSpace);
+            buttons[i].setTranslateY(translateY);
+            buttons[i].setPrefSize(width - (sideSpace * 2), buttonHeight);
+            buttons[i].setFont(FONT);
+            if (i == 0) topButtonPosition = translateY;
+        }
+
+        root.getChildren().addAll(buttons);
+        return topButtonPosition;
+    }
+
+    /**
+     * Size of returned Font proportional to the scene/stage.
+     * @param path - String path of the path in Resources.
+     * @return Font with proper size adjustment and font resource.
+     */
+    private Font setUpFont(String path, int size)
+    {
+        Font FONT;
+        try {
+            FONT = Font.loadFont(new FileInputStream(
+                    path), size);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            FONT = null;
+        }
+        return FONT;
+    }
+}

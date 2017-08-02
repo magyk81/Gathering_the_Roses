@@ -1,0 +1,114 @@
+
+
+The font in this file is the property of and copyrighted 
+by  Peter Rempel, and is subject to this liberal, fairly 
+explicit,  and somewhat lengthy license agreement, which you 
+accept by using the files.
+
+Licensed use:
+Like most software, this font file remain the property of the author (Peter Rempel). 
+You are licensed to use it according to the terms of this agreement, but you do not own them. 
+
+Warranty:
+Although I have taken care to see that they work, the fonts are
+not warranted to work on your system (or even on mine). You use
+them at your own risk. 
+
+Personal Use
+The fonts are free for personal use: 
+You may use them on any machine that you own or control.
+You may alter or modify them, or translate them into any other format 
+(please note that you may not distribute a modified or translated font--see below).
+
+You may use the font for writing or symbols, on paper, in
+another computer application (e.g. a drawing program), or in
+any other medium, as long as the writing or symbols are
+neither sold nor published.
+
+Commercial Use:
+The fonts may be used to produce published printed material 
+(whether it is sold or not), or printed material that is sold 
+or done for hire (even if it is not published) if either one 
+of the following conditions is met:
+
+Payment of a $10 shareware fee that entitles you to use the
+font in perpetuity, but only on one computer at a time, or:
+
+Sending to me one copy of each published, sold, or contracted
+work in which a font is used. The fonts may be used to produce 
+images for World Wide Web pages:
+
+Commercial organizations must pay the shareware fee (above).
+
+Individuals and non-profit organizations having pages with unrestricted 
+access must send me the URL of every page that uses the fonts. 
+
+Educators or students with pages available only locally on a single 
+campus or university system must email copies of the pages and graphics.
+
+All other "intranet" use is deemed commercial, 
+and the shareware fee must be paid.
+
+The fonts may be included in commercial software after securing
+my permission in advance.  I will expect:
+
+Acknowledgment of the authorship of the fonts. 
+
+Receipt of one registerable full version of the software, to
+be used or given away as I see fit.  
+
+I may choose to withhold permission to include the font in
+software I deem objectionable.
+
+Distribution:
+The fonts may be distributed by individuals, bulletin board
+systems, FTP sites, WWW sites, etc., without restriction as long
+as:
+
+No fee is charged for the fonts (this does not include
+subscription or access fees for a bulletin board or online
+service). 
+
+All files are included. 
+
+None are modified.
+
+
+The fonts may be distributed as part of "shareware libraries",
+provided that:
+
+All files are included
+
+None is modified
+
+I receive a copy of every different disk or CD containing my
+fonts, to use or give away as I see fit.
+
+
+If you want to distribute a translated version (e.g., Type 1,
+Macintosh Truetype) of one of my fonts, please contact me.
+
+For any uses not covered explicitly by this agreement, please 
+contact me.
+
+I am always grateful for acknowledgment of my fonts, especially  
+if you send samples showing how you have used them.
+
+Even if your use in non-commercial, but you would like to encourage me to produce high quality fonts like this one, your $10 shareware fee will be gratefully accepted.
+
+
+Peter Rempel 
+
+P.O. box 26142
+Sherbrook Westminster P.O.
+116 Sherbrook St.
+Winnipeg, MB
+R3C 2C0
+
+
+prempel@pangea.ca
+http://www.pangea.ca/~prempel/
+
+This license agreement is placed in the public domain.  If you
+like it, snarf it. 
+
