@@ -36,6 +36,7 @@ public class Main extends Application
 {
     private final int WIN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int WIN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private final int FONT_SIZE_FACTOR = Math.min(WIN_HEIGHT, WIN_WIDTH) / 216;
     private final Color STARTUP_COLOR = Color.DARKGRAY;
     private final String SPLASH = Util.getSplash();
 
@@ -90,29 +91,29 @@ public class Main extends Application
         final String FONT_MORPHEUS = "./Resources/Fonts/Morpheus/Morpheus.ttf";
 
         // Load all the fonts at once.
-        Font FONT_MORPHEUS_15 = new Font(15);
-        Font FONT_MORPHEUS_20 = new Font(20);
-        Font FONT_AUGUSTA_20 = new Font(20);
-        Font FONT_AUGUSTA_30 = new Font(30);
-        Font FONT_KNIGHT_30 = new Font(30);
-        Font FONT_FUTHARK_30 = new Font(30);
-        Font FONT_KAISHO_20 = new Font(20);
+        Font FONT_MORPHEUS_SMALL = new Font(FONT_SIZE_FACTOR * 3);
+        Font FONT_MORPHEUS_MEDIUM = new Font(FONT_SIZE_FACTOR * 4);
+        Font FONT_AUGUSTA_MEDIUM = new Font(FONT_SIZE_FACTOR * 4);
+        Font FONT_AUGUSTA_LARGE = new Font(FONT_SIZE_FACTOR * 6);
+        Font FONT_KNIGHT_LARGE = new Font(FONT_SIZE_FACTOR * 6);
+        Font FONT_FUTHARK_LARGE = new Font(FONT_SIZE_FACTOR * 6);
+        Font FONT_KAISHO_MEDIUM = new Font(FONT_SIZE_FACTOR * 4);
 
         try {
-            FONT_KAISHO_20 = Font.loadFont(new FileInputStream(
-                    FONT_KAISHO), 20);
-            FONT_AUGUSTA_20 = Font.loadFont(new FileInputStream(
-                    FONT_AUGUSTA), 20);
-            FONT_AUGUSTA_30 = Font.loadFont(new FileInputStream(
-                    FONT_AUGUSTA), 30);
-            FONT_MORPHEUS_15 = Font.loadFont(new FileInputStream(
-                    FONT_MORPHEUS), 15);
-            FONT_MORPHEUS_20 = Font.loadFont(new FileInputStream(
-                    FONT_MORPHEUS), 20);
-            FONT_KNIGHT_30 = Font.loadFont(new FileInputStream(
-                    FONT_KNIGHT), 30);
-            FONT_FUTHARK_30 = Font.loadFont(new FileInputStream(
-                    FONT_FUTHARK), 30);
+            FONT_KAISHO_MEDIUM = Font.loadFont(new FileInputStream(
+                    FONT_KAISHO), FONT_SIZE_FACTOR * 4);
+            FONT_AUGUSTA_MEDIUM = Font.loadFont(new FileInputStream(
+                    FONT_AUGUSTA), FONT_SIZE_FACTOR * 4);
+            FONT_AUGUSTA_LARGE = Font.loadFont(new FileInputStream(
+                    FONT_AUGUSTA), FONT_SIZE_FACTOR * 6);
+            FONT_MORPHEUS_SMALL = Font.loadFont(new FileInputStream(
+                    FONT_MORPHEUS), FONT_SIZE_FACTOR * 3);
+            FONT_MORPHEUS_MEDIUM = Font.loadFont(new FileInputStream(
+                    FONT_MORPHEUS), FONT_SIZE_FACTOR * 4);
+            FONT_KNIGHT_LARGE = Font.loadFont(new FileInputStream(
+                    FONT_KNIGHT), FONT_SIZE_FACTOR * 6);
+            FONT_FUTHARK_LARGE = Font.loadFont(new FileInputStream(
+                    FONT_FUTHARK), FONT_SIZE_FACTOR * 6);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -122,8 +123,8 @@ public class Main extends Application
         Button quitButton = new Button("Quit"); // Quits the application
         startButton.setMinSize(130, 45);
         quitButton.setMinSize(70, 45);
-        startButton.setFont(FONT_MORPHEUS_20);
-        quitButton.setFont(FONT_MORPHEUS_20);
+        startButton.setFont(FONT_MORPHEUS_MEDIUM);
+        quitButton.setFont(FONT_MORPHEUS_MEDIUM);
 
         // Set up drop-down menu (ComboBox) to select resolution.
         ComboBox<Text> resolutionDropDown = new ComboBox<>();
@@ -138,7 +139,7 @@ public class Main extends Application
 
         // Button that resets the resolutionDropDown.
         Button resetResolutionButton = new Button("Reset to your\nscreen resolution");
-        resetResolutionButton.setFont(FONT_MORPHEUS_15);
+        resetResolutionButton.setFont(FONT_MORPHEUS_SMALL);
         resetResolutionButton.setTextAlignment(TextAlignment.CENTER);
         resetResolutionButton.setPrefSize(140, 60);
 
@@ -160,28 +161,28 @@ public class Main extends Application
         Text titleText = new Text("Gathering the Roses - " + VERSION);
         Text splashText = new Text(SPLASH);
         splashText.setTextAlignment(TextAlignment.LEFT);
-        titleText.setFont(FONT_KNIGHT_30);
-        splashText.setFont(FONT_FUTHARK_30);
-        resolutionHolder.setFont(FONT_AUGUSTA_20);
-        resolutionText.setFont(FONT_AUGUSTA_30);
+        titleText.setFont(FONT_KNIGHT_LARGE);
+        splashText.setFont(FONT_FUTHARK_LARGE);
+        resolutionHolder.setFont(FONT_AUGUSTA_MEDIUM);
+        resolutionText.setFont(FONT_AUGUSTA_LARGE);
         // Set the font for every Text in the resolution drop-down menu.
         for (Text item : resolutionDropDown.getItems())
         {
-            item.setFont(FONT_AUGUSTA_20);
+            item.setFont(FONT_AUGUSTA_MEDIUM);
         }
-        languageHolder.setFont(FONT_AUGUSTA_20);
-        languageText.setFont(FONT_AUGUSTA_30);
+        languageHolder.setFont(FONT_AUGUSTA_MEDIUM);
+        languageText.setFont(FONT_AUGUSTA_LARGE);
         // Set the font for every Text in the language drop-down menu.
         for (Text item : languageDropDown.getItems())
         {
             if (!item.getText().equals(LanguageEnum.WAPANESE.toString()))
             {
-                item.setFont(FONT_AUGUSTA_20);
+                item.setFont(FONT_AUGUSTA_MEDIUM);
             }
             else
             {
                 // The Augusta font doesn't support Kanji.
-                item.setFont(FONT_KAISHO_20);
+                item.setFont(FONT_KAISHO_MEDIUM);
             }
         }
 
