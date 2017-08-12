@@ -20,7 +20,6 @@ import java.io.FileNotFoundException;
  */
 class MainGame
 {
-
     private Stage stage;
     private final Group root = new Group();
     private final Scene scene;
@@ -90,118 +89,24 @@ class MainGame
 
     private void goToMainMenu()
     {
-        Button[] menuButtons = { new Button("Adventure"), new Button("Versus"),
+        Button[] buttons = { new Button("Adventure"), new Button("Versus"),
                 new Button("Inventory"), new Button("Options"), new Button("Quit") };
-        menuButtons[0].setOnAction(event -> {
-            // Start the campaign.
-        });
-        menuButtons[1].setOnAction(event -> {
-            goToVersusMenu();
-        });
-        menuButtons[2].setOnAction(event -> {
-            // Open Inventory.
-        });
-        menuButtons[3].setOnAction(event -> {
-            goToOptionsMenu();
-        });
-        menuButtons[4].setOnAction(event -> goToQuitMenu());
-        setUpMenu("Gathèring\nthç Roses~", FONT_EVANESCENT_LARGE, menuButtons);
-    }
+        buttons[0].setOnAction(event -> goToCampaignMenu());
+        buttons[1].setOnAction(event -> goToVersusMenu());
+        buttons[2].setOnAction(event -> goToInventoryMenu());
+        buttons[3].setOnAction(event -> goToOptionsMenu());
+        buttons[4].setOnAction(event -> goToQuitMenu());
 
-    private void goToVersusMenu()
-    {
-        Button[] menuButtons = { new Button("1 Screen"), new Button("2 Screens") };
-        menuButtons[0].setOnAction(event -> {
-            root.getChildren().clear();
-
-            Stage stages[] = new Stage[1];
-            stages[0] = stage;
-
-            Match match = new Match(stages, scene, root);
-            match.start(width, height);
-        });
-        // TODO: Make options menu take care of stage stuff.
-        menuButtons[1].setOnAction(event -> {
-            root.getChildren().clear();
-
-            Stage stages[] = new Stage[2];
-            stages[0] = stage;
-            stages[1] = new Stage();
-
-            Match match = new Match(stages, scene, root);
-            match.start(width, height);
-        });
-        setUpMenu("\n\n~Setup Menu", FONT_EVANESCENT, menuButtons);
-    }
-
-    private void goToOptionsMenu()
-    {
-        Button[] menuButtons = { new Button("Configure multi-display") };
-        menuButtons[0].setOnAction(event -> {
-            goToSplitScreenMenu();
-        });
-        setUpMenu("\n\n~Options Menu", FONT_EVANESCENT, menuButtons);
-    }
-
-    private void goToSplitScreenMenu()
-    {
-
-    }
-
-    private void goToQuitMenu()
-    {
-        Button[] menuButtons = { new Button("Yes"), new Button("No") };
-        menuButtons[0].setOnAction(event -> {
-            root.getChildren().clear();
-            stage.close();
-            System.exit(0);
-        });
-        menuButtons[1].setOnAction(event -> goToMainMenu());
-        // Put an "\n" to make the text go down.
-        setUpMenu("\nAre you sure\nyou want to leave?", FONT_EVANESCENT, menuButtons);
-    }
-
-    /**
-     * Sets up a simple menu. Do not put more than 5 buttons in the array parameter.
-     * Uses the method arrangeWidgets() to clear the root.
-     */
-    private void setUpMenu(String title, Font titleFont, Button[] buttons)
-    {
-        Text titleText = new Text(title);
-        titleText.setFont(titleFont);
+        Text titleText = new Text("Gathèring\nthç Roses~");
+        titleText.setFont(FONT_EVANESCENT_LARGE);
         titleText.setTextAlignment(TextAlignment.CENTER);
 
         VBox titlePane = new VBox();
         titlePane.getChildren().add(titleText);
         titlePane.setTranslateX((width - titleText.getLayoutBounds().getWidth()) / 2);
 
-        /* arrangeWidgets() places the buttons in their proper locations.
-        *  Its return value is used to properly position the title. */
-        int buttonTopBounds = arrangeWidgets(width, height, buttons);
-
-        // If the text is too low that it overlaps the buttons, we'll move it up.
-        int textBottomBounds = (int) titleText.getLayoutBounds().getHeight();
-
-        // If the bottom of the title is below the top of the first button
-        if (textBottomBounds > buttonTopBounds)
-            titlePane.setTranslateY(buttonTopBounds - textBottomBounds / 5 * 6);
-        // The (/ 5 * 6) modifier is so that there is space between the title and button.
-
-        // arrangeWidgets() clears the root, so titlePane must be added after.
-        root.getChildren().add(titlePane);
-    }
-
-    /**
-     * Used only for menus with 5 or less buttons, a title, and nothing else.
-     * Places widgets proportional to the scene's/stage's width and height.
-     * Will do so using only ints, no floats.
-     * @param width - current window width
-     * @param height - current window height
-     * Returns the position of the top button.
-     */
-    private int arrangeWidgets(int width, int height, Button[] buttons)
-    {
-        int topButtonPosition = 0;
+        /* Places the buttons in their proper locations. */
+        int buttonTopBounds = 0;
         root.getChildren().clear();
 
         /* The width of the spaces on the sides where there are no buttons.
@@ -223,12 +128,186 @@ class MainGame
             buttons[i].setTranslateY(translateY);
             buttons[i].setPrefSize(width - (sideSpace * 2), buttonHeight);
             buttons[i].setFont(FONT);
-            if (i == 0) topButtonPosition = translateY;
+            if (i == 0) buttonTopBounds = translateY;
         }
 
         root.getChildren().addAll(buttons);
-        return topButtonPosition;
+
+        // If the text is too low that it overlaps the buttons, we'll move it up.
+        int textBottomBounds = (int) titleText.getLayoutBounds().getHeight();
+
+        // If the bottom of the title is below the top of the first button
+        if (textBottomBounds > buttonTopBounds)
+            titlePane.setTranslateY(buttonTopBounds - textBottomBounds / 5 * 6);
+        // The (/ 5 * 6) modifier is so that there is space between the title and button.
+
+        // arrangeWidgets() clears the root, so titlePane must be added after.
+        root.getChildren().add(titlePane);
     }
+
+    private void goToCampaignMenu()
+    {
+        Button[] buttons = { new Button("Go Back") };
+
+        buttons[0].setOnAction(event -> goToMainMenu());
+
+        Text messageText = new Text("Coming Soon!");
+        messageText.setFont(FONT_EVANESCENT_LARGE);
+        messageText.setTextAlignment(TextAlignment.CENTER);
+        VBox messagePane = new VBox();
+        messagePane.getChildren().add(messageText);
+        messagePane.setTranslateX((width - messageText.getLayoutBounds().getWidth()) / 2);
+        messagePane.setTranslateY(0);
+        messagePane.setPrefHeight(height / 2);
+
+        root.getChildren().clear();
+
+        buttons[0].setPrefSize(width / 1.5F, height / 6);
+
+        buttons[0].setTranslateX((width / 2) - (width / 3));
+        buttons[0].setTranslateY(height - height / 6);
+
+        root.getChildren().addAll(buttons);
+
+        messagePane.setTranslateY(height / 2);
+
+        root.getChildren().add(messagePane);
+    }
+
+    private void goToVersusMenu()
+    {
+        Button[] buttons = { new Button("1 Screen"), new Button("2 Screens") };
+        buttons[0].setOnAction(event -> {
+            root.getChildren().clear();
+
+            Stage stages[] = new Stage[1];
+            stages[0] = stage;
+
+            Match match = new Match(stages, scene, root);
+            match.start(width, height);
+        });
+        // TODO: Make options menu take care of stage stuff.
+        buttons[1].setOnAction(event -> {
+            root.getChildren().clear();
+
+            Stage stages[] = new Stage[2];
+            stages[0] = stage;
+            stages[1] = new Stage();
+
+            Match match = new Match(stages, scene, root);
+            match.start(width, height);
+        });
+        setUpMainMenu("\n\n~Setup Menu", FONT_EVANESCENT, buttons); // TODO: Replace with better menu
+    }
+
+    private void goToInventoryMenu()
+    {
+        Button[] buttons = { new Button("Go Back") };
+    }
+
+    private void goToOptionsMenu()
+    {
+        Button[] buttons = { new Button("Language"), new Button("Resolution"),
+                new Button("Multi-display/Split-screen") };
+        buttons[0].setOnAction(event -> goToLanguageMenu());
+        buttons[1].setOnAction(event -> goToResolutionMenu());
+        buttons[2].setOnAction(event -> goToSplitScreenMenu());
+        setUpMainMenu("\n\n~Options Menu", FONT_EVANESCENT, buttons);
+    }
+
+    private void goToLanguageMenu()
+    {
+
+    }
+
+    private void goToResolutionMenu()
+    {
+
+    }
+
+    private void goToSplitScreenMenu()
+    {
+
+    }
+
+    private void goToQuitMenu()
+    {
+        Button[] menuButtons = { new Button("Yes"), new Button("No") };
+        menuButtons[0].setOnAction(event -> {
+            root.getChildren().clear();
+            stage.close();
+            System.exit(0);
+        });
+        menuButtons[1].setOnAction(event -> goToMainMenu());
+        // Put an "\n" to make the text go down.
+        setUpMainMenu("\nAre you sure\nyou want to leave?", FONT_EVANESCENT, menuButtons); // TODO: Replace with better menu
+    }
+
+    /**
+     * Sets up a main menu. Do not put more than 5 buttons in the array parameter.
+     * Uses the method arrangeWidgets() to clear the root.
+     */
+    private void setUpMainMenu(String title, Font titleFont, Button[] buttons)
+    {
+        Text titleText = new Text(title);
+        titleText.setFont(titleFont);
+        titleText.setTextAlignment(TextAlignment.CENTER);
+
+        VBox titlePane = new VBox();
+        titlePane.getChildren().add(titleText);
+        titlePane.setTranslateX((width - titleText.getLayoutBounds().getWidth()) / 2);
+
+        /* Places the buttons in their proper locations. */
+        int buttonTopBounds = 0;
+        root.getChildren().clear();
+
+        /* The width of the spaces on the sides where there are no buttons.
+           Use (width - sideSpace) to get the position of the right-side space. */
+        int sideSpace;
+
+        // Space between buttons.
+        int betweenButtons = height / 35;
+        int buttonHeight = betweenButtons * 3;
+
+        if (width * 2 / 3 > height) sideSpace = (width - height) / 6 * 5;
+        else if (width > height) sideSpace = (width - height) / 2 * 3;
+        else sideSpace = height / 10;
+
+        for (int i = 0; i < buttons.length; i++)
+        {
+            int translateY = betweenButtons * 10 + (i * betweenButtons * 5);
+            buttons[i].setTranslateX(sideSpace);
+            buttons[i].setTranslateY(translateY);
+            buttons[i].setPrefSize(width - (sideSpace * 2), buttonHeight);
+            buttons[i].setFont(FONT);
+            if (i == 0) buttonTopBounds = translateY;
+        }
+
+        root.getChildren().addAll(buttons);
+
+        // If the text is too low that it overlaps the buttons, we'll move it up.
+        int textBottomBounds = (int) titleText.getLayoutBounds().getHeight();
+
+        // If the bottom of the title is below the top of the first button
+        if (textBottomBounds > buttonTopBounds)
+            titlePane.setTranslateY(buttonTopBounds - textBottomBounds / 5 * 6);
+        // The (/ 5 * 6) modifier is so that there is space between the title and button.
+
+        // arrangeWidgets() clears the root, so titlePane must be added after.
+        root.getChildren().add(titlePane);
+    }
+
+    /**
+     * Used only for menus with 5 or less buttons, a title, and nothing else.
+     * Places widgets proportional to the scene's/stage's width and height.
+     * Will do so using only ints, no floats.
+     * Returns the position of the top button.
+     */
+    /*private int arrangeWidgets(Button[] buttons)
+    {
+
+        return topButtonPosition;
+    }*/
 
     /**
      * Size of returned Font proportional to the scene/stage.
