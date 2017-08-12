@@ -158,7 +158,7 @@ class MainGame
         messagePane.getChildren().add(messageText);
         messagePane.setTranslateX((width - messageText.getLayoutBounds().getWidth()) / 2);
         messagePane.setTranslateY(0);
-        messagePane.setPrefHeight(height / 2);
+        messagePane.setPrefSize(0, 0);
 
         root.getChildren().clear();
 
@@ -166,6 +166,10 @@ class MainGame
 
         buttons[0].setTranslateX((width / 2) - (width / 3));
         buttons[0].setTranslateY(height - height / 6);
+
+        buttons[0].setFont(FONT);
+
+        messagePane.getChildren().add(buttons[0]);
 
         root.getChildren().addAll(buttons);
 
@@ -203,6 +207,34 @@ class MainGame
     private void goToInventoryMenu()
     {
         Button[] buttons = { new Button("Go Back") };
+
+        buttons[0].setOnAction(event -> goToMainMenu());
+
+        Text messageText = new Text("Coming Soon!");
+        messageText.setFont(FONT_EVANESCENT_LARGE);
+        messageText.setTextAlignment(TextAlignment.CENTER);
+        VBox messagePane = new VBox();
+        messagePane.getChildren().add(messageText);
+        messagePane.setTranslateX((width - messageText.getLayoutBounds().getWidth()) / 2);
+        messagePane.setTranslateY(0);
+        messagePane.setPrefSize(0, 0);
+
+        root.getChildren().clear();
+
+        buttons[0].setPrefSize(width / 1.5F, height / 6);
+
+        buttons[0].setTranslateX((width / 2) - (width / 3));
+        buttons[0].setTranslateY(height - height / 6);
+
+        buttons[0].setFont(FONT);
+
+        messagePane.getChildren().add(buttons[0]);
+
+        root.getChildren().addAll(buttons);
+
+        messagePane.setTranslateY(height / 2);
+
+        root.getChildren().add(messagePane);
     }
 
     private void goToOptionsMenu()

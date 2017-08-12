@@ -63,11 +63,6 @@ public class Main extends Application
 
         //Window window = stage; window.getGraphicsConfiguration().getDevice();
 
-        for (Screen screen : Screen.getScreens())
-        {
-            System.out.println("getMinX(): " + screen.getBounds().getMinX());
-        }
-
         /*******************************************************************************/
         final String VERSION = "indev";
 
