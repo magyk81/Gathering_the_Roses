@@ -36,7 +36,7 @@ public class Main extends Application
 {
     private final int WIN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int WIN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final int FONT_SIZE_FACTOR = Math.min(WIN_HEIGHT, WIN_WIDTH) / 216;
+    private final float FONT_SIZE_FACTOR = Math.min(WIN_HEIGHT, WIN_WIDTH) / 216F;
     private final Color STARTUP_COLOR = Color.DARKGRAY;
     private final String SPLASH = Util.getSplash();
 
