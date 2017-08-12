@@ -36,7 +36,7 @@ public class Main extends Application
 {
     private final int WIN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int WIN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final float FONT_SIZE_FACTOR = Math.min(WIN_HEIGHT, WIN_WIDTH) / 216F;
+    private final float DIM_FACTOR = Math.min(WIN_HEIGHT, WIN_WIDTH) / 216F;
     private final Color STARTUP_COLOR = Color.DARKGRAY;
     private final String SPLASH = Util.getSplash();
 
@@ -91,29 +91,29 @@ public class Main extends Application
         final String FONT_MORPHEUS = "./Resources/Fonts/Morpheus/Morpheus.ttf";
 
         // Load all the fonts at once.
-        Font FONT_MORPHEUS_SMALL = new Font(FONT_SIZE_FACTOR * 3);
-        Font FONT_MORPHEUS_MEDIUM = new Font(FONT_SIZE_FACTOR * 4);
-        Font FONT_AUGUSTA_MEDIUM = new Font(FONT_SIZE_FACTOR * 4);
-        Font FONT_AUGUSTA_LARGE = new Font(FONT_SIZE_FACTOR * 6);
-        Font FONT_KNIGHT_LARGE = new Font(FONT_SIZE_FACTOR * 6);
-        Font FONT_FUTHARK_LARGE = new Font(FONT_SIZE_FACTOR * 6);
-        Font FONT_KAISHO_MEDIUM = new Font(FONT_SIZE_FACTOR * 4);
+        Font FONT_MORPHEUS_SMALL = new Font(DIM_FACTOR * 3);
+        Font FONT_MORPHEUS_MEDIUM = new Font(DIM_FACTOR * 4);
+        Font FONT_AUGUSTA_MEDIUM = new Font(DIM_FACTOR * 4);
+        Font FONT_AUGUSTA_LARGE = new Font(DIM_FACTOR * 6);
+        Font FONT_KNIGHT_LARGE = new Font(DIM_FACTOR * 6);
+        Font FONT_FUTHARK_LARGE = new Font(DIM_FACTOR * 6);
+        Font FONT_KAISHO_MEDIUM = new Font(DIM_FACTOR * 4);
 
         try {
             FONT_KAISHO_MEDIUM = Font.loadFont(new FileInputStream(
-                    FONT_KAISHO), FONT_SIZE_FACTOR * 4);
+                    FONT_KAISHO), DIM_FACTOR * 4);
             FONT_AUGUSTA_MEDIUM = Font.loadFont(new FileInputStream(
-                    FONT_AUGUSTA), FONT_SIZE_FACTOR * 4);
+                    FONT_AUGUSTA), DIM_FACTOR * 4);
             FONT_AUGUSTA_LARGE = Font.loadFont(new FileInputStream(
-                    FONT_AUGUSTA), FONT_SIZE_FACTOR * 6);
+                    FONT_AUGUSTA), DIM_FACTOR * 6);
             FONT_MORPHEUS_SMALL = Font.loadFont(new FileInputStream(
-                    FONT_MORPHEUS), FONT_SIZE_FACTOR * 3);
+                    FONT_MORPHEUS), DIM_FACTOR * 3);
             FONT_MORPHEUS_MEDIUM = Font.loadFont(new FileInputStream(
-                    FONT_MORPHEUS), FONT_SIZE_FACTOR * 4);
+                    FONT_MORPHEUS), DIM_FACTOR * 4);
             FONT_KNIGHT_LARGE = Font.loadFont(new FileInputStream(
-                    FONT_KNIGHT), FONT_SIZE_FACTOR * 6);
+                    FONT_KNIGHT), DIM_FACTOR * 6);
             FONT_FUTHARK_LARGE = Font.loadFont(new FileInputStream(
-                    FONT_FUTHARK), FONT_SIZE_FACTOR * 6);
+                    FONT_FUTHARK), DIM_FACTOR * 6);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -135,13 +135,13 @@ public class Main extends Application
         // The text that will label the drop-down menu.
         Text resolutionText = new Text("Resolution:");
         resolutionDropDown.setValue(resolutionHolder);
-        resolutionDropDown.setPrefSize(140, 40);
+        resolutionDropDown.setPrefSize(DIM_FACTOR * 28, DIM_FACTOR * 8);
 
         // Button that resets the resolutionDropDown.
         Button resetResolutionButton = new Button("Reset to your\nscreen resolution");
         resetResolutionButton.setFont(FONT_MORPHEUS_SMALL);
         resetResolutionButton.setTextAlignment(TextAlignment.CENTER);
-        resetResolutionButton.setPrefSize(140, 60);
+        resetResolutionButton.setPrefSize(DIM_FACTOR * 28, DIM_FACTOR * 12);
 
         // Set up drop-down menu (ComboBox) to select language.
         ComboBox<Text> languageDropDown = new ComboBox<>();
@@ -154,7 +154,7 @@ public class Main extends Application
         // The text that will label the drop-down menu.
         Text languageText = new Text("Language:");
         languageDropDown.setValue(languageHolder);
-        languageDropDown.setPrefSize(140, 40);
+        languageDropDown.setPrefSize(DIM_FACTOR * 28, DIM_FACTOR * 8);
         languageDropDown.setVisibleRowCount(4);
 
         // Set up title text and spash text. Import special font for both of them.
@@ -188,25 +188,25 @@ public class Main extends Application
 
         // Top horizontal box.
         HBox topHBox = new HBox();
-        topHBox.setPadding(new Insets (20));
+        topHBox.setPadding(new Insets (DIM_FACTOR * 4));
 
         // This VBox is where the resolution and language drop-down menus will be held.
         VBox leftVBox = new VBox();
         leftVBox.setPrefHeight(WIN_HEIGHT / 2); // This size will always be large enough.
-        leftVBox.setSpacing(5);
-        leftVBox.setPadding(new Insets(20));
+        leftVBox.setSpacing(DIM_FACTOR);
+        leftVBox.setPadding(new Insets(DIM_FACTOR * 4));
 
         // This will be kept at the top of leftVBox.
         StackPane leftVBoxStuffing1 = new StackPane();
-        leftVBoxStuffing1.setPrefHeight(10);
+        leftVBoxStuffing1.setPrefHeight(DIM_FACTOR * 4);
         // This will be kept between the drop-down menus of leftVBox.
         StackPane leftVBoxStuffing2 = new StackPane();
-        leftVBoxStuffing2.setPrefHeight(40);
+        leftVBoxStuffing2.setPrefHeight(DIM_FACTOR * 8);
 
         // Bottom horizontal box.
         HBox bottomHBox = new HBox();
-        bottomHBox.setPadding(new Insets(20));
-        bottomHBox.setSpacing(20);
+        bottomHBox.setPadding(new Insets(DIM_FACTOR * 4));
+        bottomHBox.setSpacing(DIM_FACTOR * 4);
 
         // The splashText goes in futharkPane, which goes in the bottomHBox.
         StackPane futharkPane = new StackPane();
