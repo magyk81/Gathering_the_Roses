@@ -4,6 +4,7 @@ import Common.Match;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -23,6 +24,8 @@ class MainGame
     private Stage stage;
     private final Group root = new Group();
     private final Scene scene;
+    private final MultiDisplay multiDisplay;
+    private final Mouse mouse;
 
     private int width, height;
 
@@ -39,12 +42,14 @@ class MainGame
     MainGame(final Stage stage, int win_width, int win_height)
     {
         scene = new Scene(root, win_width, win_height, Color.GRAY);
+        mouse = new Mouse();
 
         stage.setTitle("You-Gay-Ho!");
         stage.setScene(scene);
 
         // The stage is kept and handled by MainGame from here on.
         this.stage = stage;
+        multiDisplay = new MultiDisplay();
 
         width = win_width;
         height = win_height;
@@ -84,6 +89,7 @@ class MainGame
     void start()
     {
         goToMainMenu();
+        scene.addEventHandler(MouseEvent.ANY, mouse);
         stage.show();
     }
 
