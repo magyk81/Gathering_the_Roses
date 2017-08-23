@@ -34,9 +34,9 @@ import java.util.Locale;
  */
 public class Main extends Application
 {
-    private final int WIN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
-    private final int WIN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private final float DIM_FACTOR = Math.min(WIN_HEIGHT, WIN_WIDTH) / 216F;
+    private final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private final float DIM_FACTOR = Math.min(SCREEN_HEIGHT, SCREEN_WIDTH) / 216F;
     private final Color STARTUP_COLOR = Color.DARKGRAY;
     private final String SPLASH = Util.getSplash();
 
@@ -67,14 +67,14 @@ public class Main extends Application
         final String VERSION = "indev";
 
         // Scene (and consequently the Stage) are half the width and height of the screen.
-        Scene scene = new Scene(root, WIN_WIDTH / 2, WIN_HEIGHT / 2, STARTUP_COLOR);
+        Scene scene = new Scene(root, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, STARTUP_COLOR);
         stage.setScene(scene);
 
         stage.setTitle(SPLASH); // Set splash to be the window title.
 
         // Sets the stage at the center of the screen.
-        stage.setX(WIN_WIDTH / 4);
-        stage.setY(WIN_HEIGHT / 4);
+        stage.setX(SCREEN_WIDTH / 4);
+        stage.setY(SCREEN_HEIGHT / 4);
 
         // Don't show the stage until it's sized and positioned correctly.
         stage.show();
@@ -126,8 +126,8 @@ public class Main extends Application
         ComboBox<Text> resolutionDropDown = new ComboBox<>();
         resolutionDropDown.getItems().addAll(getResolutionsList());
         // The default text that will show up in the drop-down menu.
-        Text resolutionHolder = new Text(Integer.toString(WIN_WIDTH)
-                + " x " + Integer.toString(WIN_HEIGHT));
+        Text resolutionHolder = new Text(Integer.toString(SCREEN_WIDTH)
+                + " x " + Integer.toString(SCREEN_HEIGHT));
         // The text that will label the drop-down menu.
         Text resolutionText = new Text("Resolution:");
         resolutionDropDown.setValue(resolutionHolder);
@@ -188,7 +188,7 @@ public class Main extends Application
 
         // This VBox is where the resolution and language drop-down menus will be held.
         VBox leftVBox = new VBox();
-        leftVBox.setPrefHeight(WIN_HEIGHT / 2); // This size will always be large enough.
+        leftVBox.setPrefHeight(SCREEN_HEIGHT / 2); // This size will always be large enough.
         leftVBox.setSpacing(DIM_FACTOR);
         leftVBox.setPadding(new Insets(DIM_FACTOR * 4));
 
@@ -208,7 +208,7 @@ public class Main extends Application
         StackPane futharkPane = new StackPane();
         StackPane bottomHBoxSpacing = new StackPane();
         // To make sure the splashText is against the left side of bottomHBox.
-        bottomHBoxSpacing.setPrefWidth(WIN_WIDTH / 2); // This size will always be large enough.
+        bottomHBoxSpacing.setPrefWidth(SCREEN_WIDTH / 2); // This size will always be large enough.
 
         // Add boxes and panes to the root.
         root.getChildren().addAll(topHBox, leftVBox, bottomHBox);
@@ -289,24 +289,18 @@ public class Main extends Application
         arrayList.add(new Text("1366 x 768"));
         arrayList.add(new Text("1920 x 1080"));
         arrayList.add(new Text("1280 x 800"));
-        arrayList.add(new Text("320 x 568"));
         arrayList.add(new Text("1440 x 900"));
         arrayList.add(new Text("1280 x 1024"));
-        arrayList.add(new Text("320 x 480"));
         arrayList.add(new Text("1600 x 900"));
-        arrayList.add(new Text("768 x 1024"));
         arrayList.add(new Text("1024 x 768"));
         arrayList.add(new Text("1680 x 1050"));
-        arrayList.add(new Text("360 x 640"));
         arrayList.add(new Text("1920 x 1200"));
-        arrayList.add(new Text("720 x 1280"));
-        arrayList.add(new Text("480 x 800"));
         arrayList.add(new Text("1360 x 768"));
         arrayList.add(new Text("1280 x 720"));
         /* Only add user's screen resolution if it's not in arrayList
            already to avoid duplicates. */
-        String userResolution = Integer.toString(WIN_WIDTH)
-                + " x " + Integer.toString(WIN_HEIGHT);
+        String userResolution = Integer.toString(SCREEN_WIDTH)
+                + " x " + Integer.toString(SCREEN_HEIGHT);
         if (!textExists(arrayList, userResolution))
         {
             arrayList.add(new Text(userResolution));
