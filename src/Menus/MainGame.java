@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.concurrent.Callable;
 
 /**
  * Created by Robin on 6/22/2017.
@@ -42,7 +43,7 @@ class MainGame
     MainGame(final Stage stage, int win_width, int win_height)
     {
         scene = new Scene(root, win_width, win_height, Color.GRAY);
-        mouse = new Mouse();
+        mouse = new Mouse(this);
 
         stage.setTitle("You-Gay-Ho!");
         stage.setScene(scene);
@@ -93,7 +94,55 @@ class MainGame
         stage.show();
     }
 
+    void addWidget(Widget widget)
+    {
+        mouse.addWidget(widget);
+        root.getChildren().addAll(widget.getRects());
+    }
+
+    void clearWidgets()
+    {
+        mouse.clearWidgets();
+        root.getChildren().clear();
+    }
+
     private void goToMainMenu()
+    {
+        int space;
+        int sideSpace = (int) (height / 2.0F);
+        int topSpace = height / 6;
+        int betweenSpace = height / 30;
+        int buttonWidth = width - (sideSpace * 2);
+        int buttonHeight = height / 10;
+        Widget button1 = new NormalWidget(sideSpace, topSpace, buttonWidth, buttonHeight);
+        space = betweenSpace + button1.getPosY(false);
+        Widget button2 = new NormalWidget(sideSpace, space, buttonWidth, buttonHeight);
+        space = betweenSpace + button2.getPosY(false);
+        Widget button3 = new NormalWidget(sideSpace, space, buttonWidth, buttonHeight);
+        space = betweenSpace + button3.getPosY(false);
+        Widget button4 = new NormalWidget(sideSpace, space, buttonWidth, buttonHeight);
+        space = betweenSpace + button4.getPosY(false);
+        Widget button5 = new NormalWidget(sideSpace, space, buttonWidth, buttonHeight);
+
+        button1.setAction(() -> goToCampaignMenu());
+        button2.setAction(() -> goToVersusMenu());
+        button3.setAction(() -> goToInventoryMenu());
+        button4.setAction(() -> goToOptionsMenu());
+        button5.setAction(() -> goToQuitMenu());
+        root.getChildren().clear();
+        root.getChildren().addAll(button1.getRects());
+        root.getChildren().addAll(button2.getRects());
+        root.getChildren().addAll(button3.getRects());
+        root.getChildren().addAll(button4.getRects());
+        root.getChildren().addAll(button5.getRects());
+        mouse.addWidget(button1);
+        mouse.addWidget(button2);
+        mouse.addWidget(button3);
+        mouse.addWidget(button4);
+        mouse.addWidget(button5);
+    }
+
+    private void goToMainMenu_()
     {
         Button[] buttons = { new Button("Adventure"), new Button("Versus"),
                 new Button("Inventory"), new Button("Options"), new Button("Quit") };
@@ -151,7 +200,7 @@ class MainGame
         root.getChildren().add(titlePane);
     }
 
-    private void goToCampaignMenu()
+    private Void goToCampaignMenu()
     {
         Button[] buttons = { new Button("Go Back") };
 
@@ -182,9 +231,11 @@ class MainGame
         messagePane.setTranslateY(height / 2);
 
         root.getChildren().add(messagePane);
+
+        return null;
     }
 
-    private void goToVersusMenu()
+    private Void goToVersusMenu()
     {
         Button[] buttons = { new Button("1 Screen"), new Button("2 Screens") };
         buttons[0].setOnAction(event -> {
@@ -208,9 +259,11 @@ class MainGame
             match.start(width, height);
         });
         setUpMainMenu("\n\n~Setup Menu", FONT_EVANESCENT, buttons); // TODO: Replace with better menu
+
+        return null;
     }
 
-    private void goToInventoryMenu()
+    private Void goToInventoryMenu()
     {
         Button[] buttons = { new Button("Go Back") };
 
@@ -241,9 +294,11 @@ class MainGame
         messagePane.setTranslateY(height / 2);
 
         root.getChildren().add(messagePane);
+
+        return null;
     }
 
-    private void goToOptionsMenu()
+    private Void goToOptionsMenu()
     {
         Button[] buttons = { new Button("Language"), new Button("Resolution"),
                 new Button("Multi-display/Split-screen") };
@@ -251,6 +306,8 @@ class MainGame
         buttons[1].setOnAction(event -> goToResolutionMenu());
         buttons[2].setOnAction(event -> goToSplitScreenMenu());
         setUpMainMenu("\n\n~Options Menu", FONT_EVANESCENT, buttons);
+
+        return null;
     }
 
     private void goToLanguageMenu()
@@ -268,7 +325,7 @@ class MainGame
 
     }
 
-    private void goToQuitMenu()
+    private Void goToQuitMenu()
     {
         Button[] menuButtons = { new Button("Yes"), new Button("No") };
         menuButtons[0].setOnAction(event -> {
@@ -279,6 +336,8 @@ class MainGame
         menuButtons[1].setOnAction(event -> goToMainMenu());
         // Put an "\n" to make the text go down.
         setUpMainMenu("\nAre you sure\nyou want to leave?", FONT_EVANESCENT, menuButtons); // TODO: Replace with better menu
+
+        return null;
     }
 
     /**

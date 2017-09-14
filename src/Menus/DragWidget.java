@@ -13,10 +13,9 @@ public class DragWidget extends Widget
     /**
      * Coordinates for the rectangle.
      */
-    DragWidget(int posX, int posY, int width, int height,
-               Color colorMain, Color colorHighlight, String text, Font font)
+    DragWidget(int posX, int posY, int width, int height)
     {
-        super(posX, posY, width, height, colorMain, colorHighlight, text, font);
+        super(posX, posY, width, height);
         followX = -1;
         followY = -1;
     }
@@ -27,8 +26,7 @@ public class DragWidget extends Widget
      */
     public void followCursor(int x, int y)
     {
-        posX = x - followX;
-        posY = y - followY;
+        setPos(x - followX, y - followY);
     }
 
     /**
@@ -36,8 +34,8 @@ public class DragWidget extends Widget
      */
     public void startFollowing(int x, int y)
     {
-        followX = x - posX;
-        followY = y - posY;
+        followX = x - getPosX(true);
+        followY = y - getPosY(true);
     }
 
     /**
