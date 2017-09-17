@@ -6,8 +6,10 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.concurrent.Callable;
 
@@ -21,10 +23,8 @@ public abstract class Widget
     private Rectangle rectMain, rectHover;
     private Color colorMain, colorHover;
     private Widget neighbors[];
-    private boolean hovered;
+    private boolean hovered, initial;
     private int posX, posY, width, height;
-    private String text;
-    private Font font;
     private Callable<Void> action;
 
     /**
@@ -33,6 +33,7 @@ public abstract class Widget
     Widget(int posX, int posY, int width, int height)
     {
         action = null;
+        initial = false;
         this.posX = posX;
         this.posY = posY;
         this.width = width;
@@ -50,13 +51,22 @@ public abstract class Widget
         rectHover.setVisible(false);
     }
 
-    public HashSet<Rectangle> getRects()
+    HashSet<Rectangle> getRects()
     {
         HashSet<Rectangle> rects = new HashSet<>();
         rects.add(rectMain);
         rects.add(rectHover);
         return rects;
     }
+
+    /**
+     * Returns a list of shapes used for adding to the root Group.
+     * Uses an ArrayList so that so that they're in a certain order
+     * so that the text is in front of the rect, etc.
+     */
+    abstract ArrayList<Shape> getShapes();
+
+    abstract void setText(String string, Font font);
 
     /**
      * Only needed for when using the Mouse, not a GamePad.
@@ -74,29 +84,41 @@ public abstract class Widget
 
     /**
      * Given x and y coordinate of Mouse.
-     * If coordinates are inside, selected set to true.
-     * If coordinates are outside, selected set to false.
+     * If coordinates are inside, hovered set to true.
+     * If coordinates are outside, hovered set to false.
      */
     public void hover(int x, int y)
     {
-        if (!hovered && cursorInside(x, y))
+        if (!hovered && cursorInside(x, y)) hover(true);
+        else if (hovered && !cursorInside(x, y)) hover(false);
+    }
+
+    /**
+     * Used by Keyboard or D-pad to select an adjacent widget.
+     */
+    public boolean hover(DirectionEnum direction)
+    {
+        Widget neighbor = getNeighbor(direction);
+        if (neighbor == null || !hovered) return false;
+        neighbor.hover(true);
+        hover(false);
+        return true;
+    }
+
+    void hover(boolean here)
+    {
+        if (here)
         {
             hovered = true;
             rectMain.setVisible(false);
             rectHover.setVisible(true);
         }
-        else if (hovered && !cursorInside(x, y))
+        else
         {
             hovered = false;
             rectMain.setVisible(true);
             rectHover.setVisible(false);
         }
-    }
-
-    void setText(String text, Font font)
-    {
-        this.text = text;
-        this.font = font;
     }
 
     void setPos(int x, int y)
@@ -116,6 +138,10 @@ public abstract class Widget
         if (top) return posY;
         else return posY + height;
     }
+
+    void setInitial() { initial = true; }
+
+    boolean isInitial() { return initial; }
 
     void setAction(Callable<Void> action)
     {
@@ -137,12 +163,38 @@ public abstract class Widget
         }
     }
 
-    void act()
+    void setNeighbors(Widget north, Widget east, Widget south, Widget west)
     {
+        neighbors[0] = north;
+        neighbors[1] = east;
+        neighbors[2] = south;
+        neighbors[3] = west;
+    }
+
+    Widget getNeighbor(DirectionEnum direction)
+    {
+        switch (direction)
+        {
+            case NORTH: return neighbors[0];
+            case EAST: return neighbors[1];
+            case SOUTH: return neighbors[2];
+            case WEST: return neighbors[3];
+            default: return this;
+        }
+    }
+
+    boolean act()
+    {
+        boolean success = false;
         try {
-            if (action != null && hovered) action.call();
+            if (action != null && hovered)
+            {
+                action.call();
+                success = true;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return success;
     }
 }

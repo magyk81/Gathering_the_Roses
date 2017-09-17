@@ -18,12 +18,10 @@ import static javafx.scene.input.MouseEvent.MOUSE_RELEASED;
  */
 public class Mouse implements EventHandler<MouseEvent>
 {
-    MainGame mainGame;
     HashSet<Widget> widgets;
 
-    Mouse(MainGame mainGame)
+    Mouse()
     {
-        this.mainGame = mainGame;
         widgets = new HashSet<>();
     }
 
@@ -33,26 +31,30 @@ public class Mouse implements EventHandler<MouseEvent>
         int x = (int) event.getX();
         int y = (int) event.getY();
 
-        if (event.getEventType() == MOUSE_DRAGGED)
+        EventType type = event.getEventType();
+        MouseButton button = event.getButton();
+
+        if (type == MOUSE_DRAGGED)
         {
 
         }
 
-        if (event.getButton() == MouseButton.SECONDARY)
+        else if (button == MouseButton.SECONDARY)
         {
 
         }
-        if (event.getButton() == MouseButton.MIDDLE)
+        else if (button == MouseButton.MIDDLE)
         {
 
         }
-        if (event.getButton() == MouseButton.PRIMARY)
+        if (button == MouseButton.PRIMARY)
         {
             for (Widget widget : widgets)
             {
-                widget.act();
+                if (widget.act()) break;
             }
         }
+
         for (Widget widget : widgets)
         {
             widget.hover(x, y);

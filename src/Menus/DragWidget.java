@@ -1,7 +1,10 @@
 package Menus;
 
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Font;
+
+import java.util.ArrayList;
 
 /**
  * A widget that can be dragged and dropped.
@@ -18,6 +21,16 @@ public class DragWidget extends Widget
         super(posX, posY, width, height);
         followX = -1;
         followY = -1;
+    }
+
+    @Override
+    ArrayList<Shape> getShapes() {
+        return null;
+    }
+
+    @Override
+    void setText(String string, Font font) {
+
     }
 
     /**
