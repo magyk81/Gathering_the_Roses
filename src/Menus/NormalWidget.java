@@ -5,12 +5,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
-public class NormalWidget extends Widget
+class NormalWidget extends Widget
 {
-    private String string;
-    private Font font;
     private Text text;
 
     /**
@@ -27,9 +24,6 @@ public class NormalWidget extends Widget
      */
     void setText(String string, Font font)
     {
-        this.string = string;
-        this.font = font;
-
         text.setText(string);
         text.setFont(font);
 

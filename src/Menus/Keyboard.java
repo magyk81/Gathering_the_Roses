@@ -6,6 +6,7 @@ import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -13,11 +14,11 @@ import java.util.HashSet;
  */
 public class Keyboard implements EventHandler<KeyEvent>
 {
-    HashSet<Widget> widgets;
+    ArrayList<Widget> widgets;
 
-    Keyboard()
+    Keyboard(ArrayList<Widget> widgets)
     {
-        widgets = new HashSet<>();
+        this.widgets = widgets;
     }
 
     @Override

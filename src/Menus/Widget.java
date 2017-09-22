@@ -99,7 +99,9 @@ public abstract class Widget
     public boolean hover(DirectionEnum direction)
     {
         Widget neighbor = getNeighbor(direction);
-        if (neighbor == null || !hovered) return false;
+        //if (neighbor == null || !hovered) return false;
+        if (!hovered) return false;
+        if (neighbor == null) return true;
         neighbor.hover(true);
         hover(false);
         return true;
@@ -109,12 +111,14 @@ public abstract class Widget
     {
         if (here)
         {
+            if (hovered) return;
             hovered = true;
             rectMain.setVisible(false);
             rectHover.setVisible(true);
         }
         else
         {
+            if (!hovered) return;
             hovered = false;
             rectMain.setVisible(true);
             rectHover.setVisible(false);

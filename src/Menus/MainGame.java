@@ -32,6 +32,7 @@ class MainGame
     private final MultiDisplay multiDisplay;
     private final Mouse mouse;
     private final Keyboard keyboard;
+    private final ArrayList<Widget> widgets;
 
     private int width, height;
 
@@ -48,8 +49,9 @@ class MainGame
     MainGame(final Stage stage, int win_width, int win_height)
     {
         scene = new Scene(root, win_width, win_height, Color.GRAY);
-        mouse = new Mouse();
-        keyboard = new Keyboard();
+        widgets = new ArrayList<>();
+        mouse = new Mouse(widgets);
+        keyboard = new Keyboard(widgets);
 
         stage.setTitle("You-Gay-Ho!");
         stage.setScene(scene);
@@ -103,8 +105,7 @@ class MainGame
 
     void addWidget(Widget widget)
     {
-        mouse.addWidget(widget);
-        keyboard.addWidget(widget);
+        widgets.add(widget);
         root.getChildren().addAll(widget.getShapes());
     }
 
@@ -118,12 +119,11 @@ class MainGame
 
     void clearWidgets()
     {
-        mouse.clearWidgets();
-        keyboard.clearWidgets();
+        widgets.clear();
         root.getChildren().clear();
     }
 
-    private void goToMainMenu()
+    private Void goToMainMenu()
     {
         System.out.println("Main Menu");
 
@@ -167,6 +167,8 @@ class MainGame
 
         clearWidgets();
         addWidgets(buttons);
+
+        return null;
     }
 
     private void goToMainMenu_()
@@ -266,6 +268,8 @@ class MainGame
 
     private Void goToVersusMenu()
     {
+        System.out.println("Versus Menu");
+
         Button[] buttons = { new Button("1 Screen"), new Button("2 Screens") };
         buttons[0].setOnAction(event -> {
             root.getChildren().clear();
@@ -358,18 +362,43 @@ class MainGame
 
     private Void goToQuitMenu()
     {
+        System.out.println("Quit Menu");
+
+        int space;
+        int sideSpace = (int) (height / 2.0F);
+        int topSpace = height / 6;
+        int betweenSpace = height / 30;
+        int buttonWidth = width - (sideSpace * 2);
+        int buttonHeight = height / 10;
+
+        Widget buttons[] = new Widget[2];
+
+        buttons[0] = new NormalWidget(sideSpace, topSpace, buttonWidth, buttonHeight);
+        space = betweenSpace + buttons[0].getPosY(false);
+        buttons[1] = new NormalWidget(sideSpace, space, buttonWidth, buttonHeight);
+
+        buttons[0].setNeighbors(buttons[1], null, buttons[1], null);
+        buttons[1].setNeighbors(buttons[0], null, buttons[0], null);
+        buttons[0].setInitial();
+
+        buttons[0].setText("Yes", FONT);
+        buttons[1].setText("No", FONT);
+
+        buttons[0].setAction(() -> quit());
+        buttons[1].setAction(() -> goToMainMenu());
+
         clearWidgets();
+        addWidgets(buttons);
 
-        Button[] menuButtons = { new Button("Yes"), new Button("No") };
-        menuButtons[0].setOnAction(event -> {
-            root.getChildren().clear();
-            stage.close();
-            System.exit(0);
-        });
-        menuButtons[1].setOnAction(event -> goToMainMenu());
-        // Put an "\n" to make the text go down.
-        setUpMainMenu("\nAre you sure\nyou want to leave?", FONT_EVANESCENT, menuButtons); // TODO: Replace with better menu
+        return null;
+    }
 
+    private Void quit()
+    {
+        clearWidgets();
+        root.getChildren().clear();
+        stage.close();
+        System.exit(0);
         return null;
     }
 

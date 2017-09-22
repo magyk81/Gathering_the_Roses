@@ -7,6 +7,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 import static javafx.scene.input.MouseEvent.MOUSE_DRAGGED;
@@ -18,11 +19,11 @@ import static javafx.scene.input.MouseEvent.MOUSE_RELEASED;
  */
 public class Mouse implements EventHandler<MouseEvent>
 {
-    HashSet<Widget> widgets;
+    ArrayList<Widget> widgets;
 
-    Mouse()
+    Mouse(ArrayList<Widget> widgets)
     {
-        widgets = new HashSet<>();
+        this.widgets = widgets;
     }
 
     @Override
