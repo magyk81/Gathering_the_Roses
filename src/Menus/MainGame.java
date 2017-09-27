@@ -11,6 +11,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.*;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.FileInputStream;
@@ -26,7 +27,6 @@ class MainGame
     private Stage stage;
     private final Group root = new Group();
     private final Scene scene;
-    private final MultiDisplay multiDisplay;
     private final Mouse mouse;
     private final Keyboard keyboard;
     private final ArrayList<Widget> widgets;
@@ -56,7 +56,6 @@ class MainGame
 
         // The stage is kept and handled by MainGame from here on.
         this.stage = stage;
-        multiDisplay = new MultiDisplay();
 
         width = win_width;
         height = win_height;
@@ -157,7 +156,8 @@ class MainGame
         buttons[3].setText("Options", FONT);
         buttons[4].setText("Quit", FONT);
 
-        buttons[0].setAction(() -> goToCampaignMenu());
+        //buttons[0].setAction(() -> goToCampaignMenu());
+        buttons[0].setAction(() -> test());
         buttons[1].setAction(() -> goToVersusMenu());
         buttons[2].setAction(() -> goToInventoryMenu());
         buttons[3].setAction(() -> goToOptionsMenu());
@@ -482,5 +482,11 @@ class MainGame
             FONT = null;
         }
         return FONT;
+    }
+
+    Void test()
+    {
+        stage.setFullScreen(true);
+        return null;
     }
 }

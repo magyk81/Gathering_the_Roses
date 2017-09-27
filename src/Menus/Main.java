@@ -19,6 +19,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.awt.*;
 import java.io.FileInputStream;
@@ -37,7 +38,7 @@ public class Main extends Application
     private final int SCREEN_HEIGHT = Toolkit.getDefaultToolkit().getScreenSize().height;
     private final int SCREEN_WIDTH = Toolkit.getDefaultToolkit().getScreenSize().width;
     private final float DIM_FACTOR = Math.min(SCREEN_HEIGHT, SCREEN_WIDTH) / 216F;
-    private final Color STARTUP_COLOR = Color.DARKGRAY;
+    private final Color STARTUP_COLOR = Color.GREEN;
     private final String SPLASH = Util.getSplash();
 
     // This root (VBox) is only for the start-up menu. A different "root" will be used
@@ -67,8 +68,12 @@ public class Main extends Application
         final String VERSION = "indev";
 
         // Scene (and consequently the Stage) are half the width and height of the screen.
-        Scene scene = new Scene(root, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, STARTUP_COLOR);
+        //Scene scene = new Scene(root, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, STARTUP_COLOR);
+        Scene scene = new Scene(root, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, null);
+        //scene.setFill(null);
+        root.setStyle("-fx-background-color: rgba(255, 50, 100, 0);");
         stage.setScene(scene);
+        stage.initStyle(StageStyle.TRANSPARENT);
 
         stage.setTitle(SPLASH); // Set splash to be the window title.
 
@@ -77,6 +82,7 @@ public class Main extends Application
         stage.setY(SCREEN_HEIGHT / 4);
 
         // Don't show the stage until it's sized and positioned correctly.
+        //stage.initStyle(StageStyle.TRANSPARENT);
         stage.show();
 
         // The paths for the various fonts.
