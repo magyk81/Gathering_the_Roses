@@ -1,13 +1,13 @@
 package Menus;
 
-import Common.DirectionEnum;
+import Util.DirectionEnum;
 import javafx.event.EventHandler;
 import javafx.event.EventType;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Screen;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by Robin on 9/17/2017.
@@ -34,6 +34,7 @@ public class Keyboard implements EventHandler<KeyEvent>
             else if (code == KeyCode.DOWN) hoverWidgets(DirectionEnum.SOUTH);
             else if (code == KeyCode.RIGHT) hoverWidgets(DirectionEnum.EAST);
             else if (code == KeyCode.ENTER) actWidgets();
+            else if (code == KeyCode.T) test();
         }
     }
 
@@ -56,13 +57,17 @@ public class Keyboard implements EventHandler<KeyEvent>
         initialWidget.hover(true);
     }
 
-    void addWidget(Widget widget)
+    void test()
     {
-        widgets.add(widget);
-    }
-
-    void clearWidgets()
-    {
-        widgets.clear();
+        System.out.println("\n--Screens--");
+        for (Screen screen : Screen.getScreens())
+        {
+            System.out.println("MaxX: " + screen.getBounds().getMaxX()
+                    + "\nMinX: " + screen.getBounds().getMinX()
+                    + "\nMaxY: " + screen.getBounds().getMaxY()
+                    + "\nMinY: " + screen.getBounds().getMinY()
+                    + "\nWidth: " + screen.getBounds().getWidth()
+                    + "\nHeight: " + screen.getBounds().getHeight() + "\n");
+        }
     }
 }

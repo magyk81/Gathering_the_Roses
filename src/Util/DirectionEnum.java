@@ -1,4 +1,4 @@
-package Common;
+package Util;
 
 /**
  * Created by Robin on 6/28/2017.

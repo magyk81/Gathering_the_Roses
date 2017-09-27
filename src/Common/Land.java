@@ -1,6 +1,7 @@
 package Common;
 
 import Trait.LandTypeEnum;
+import Util.DirectionEnum;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;

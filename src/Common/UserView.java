@@ -1,13 +1,9 @@
 package Common;
 
-import Common.DirectionEnum;
-import Common.Land;
+import Util.DirectionEnum;
 import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-
-import java.util.ArrayList;
-import java.util.HashSet;
 
 /**
  * Created by Robin on 7/6/2017.

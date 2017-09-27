@@ -2,6 +2,7 @@ package Common;
 
 import Trait.LandTypeEnum;
 import Trait.SuperTypeEnum;
+import Util.DirectionEnum;
 import javafx.application.Platform;
 import javafx.scene.Group;
 

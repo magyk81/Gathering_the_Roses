@@ -1,8 +1,6 @@
 package Menus;
 
-import Common.DirectionEnum;
 import Common.Match;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,7 +16,6 @@ import java.awt.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.concurrent.Callable;
 
 /**
  * Created by Robin on 6/22/2017.
@@ -35,6 +32,7 @@ class MainGame
     private final ArrayList<Widget> widgets;
 
     private int width, height;
+    private boolean fullscreen;
 
     private final Font FONT_EVANESCENT;
     private final Font FONT_EVANESCENT_LARGE;
