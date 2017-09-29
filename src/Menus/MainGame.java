@@ -10,6 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.*;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -30,6 +31,7 @@ class MainGame
     private final Mouse mouse;
     private final Keyboard keyboard;
     private final ArrayList<Widget> widgets;
+    private final ArrayList<Display> displays;
 
     private int width, height;
     private boolean fullscreen;
@@ -72,6 +74,16 @@ class MainGame
                     getScreenSize().width - width) / 2);
             stage.setY((Toolkit.getDefaultToolkit().
                     getScreenSize().height - height) / 2);
+        }
+
+        // Set up the displays
+        displays = new ArrayList<>();
+        for (Screen screen : Screen.getScreens())
+        {
+            displays.add(new Display(screen, fullscreen));
+        }
+        for (Display display : displays)
+        {
         }
 
         // Set up fonts.
@@ -331,7 +343,7 @@ class MainGame
         return null;
     }
 
-    private Void goToOptionsMenu()
+    private Void goToOptionsMenu_()
     {
         Button[] buttons = { new Button("Language"), new Button("Resolution"),
                 new Button("Multi-display/Split-screen") };
@@ -340,6 +352,11 @@ class MainGame
         buttons[2].setOnAction(event -> goToSplitScreenMenu());
         setUpMainMenu("\n\n~Options Menu", FONT_EVANESCENT, buttons);
 
+        return null;
+    }
+
+    private Void goToOptionsMenu()
+    {
         return null;
     }
 

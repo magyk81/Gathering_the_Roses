@@ -128,6 +128,12 @@ public abstract class Widget
         posY = y;
     }
 
+    void setSize(int width, int height)
+    {
+        this.width = width;
+        this.height = height;
+    }
+
     int getPosX(boolean left)
     {
         if (left) return posX;

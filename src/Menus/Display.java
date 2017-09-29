@@ -1,9 +1,12 @@
 package Menus;
 
 import Util.DirectionEnum;
+import javafx.event.EventHandler;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 /**
  * Created by Robin on 9/22/2017.
@@ -13,7 +16,7 @@ public class Display
     int minX, maxX, minY, maxY, width, height;
     boolean fullscreen;
     Stage stage;
-    Display[] neighbors;
+    final Stage label;
 
     Display(Screen screen, boolean fullscreen)
     {
@@ -25,31 +28,39 @@ public class Display
         width = (int) bounds.getWidth();
         height = (int) bounds.getHeight();
 
-        stage = new Stage();
+        label = new Stage();
+        label.initStyle(StageStyle.TRANSPARENT);
+        label.setOpacity(0.5);
+
+        stage = null;
         this.fullscreen = fullscreen;
-        stage.setOpacity(0.5);
-        if (fullscreen) stage.setFullScreen(true);
-
-        neighbors = new Display[8];
     }
 
-    Display getNeighbor(DirectionEnum direction)
+    void showLabel(boolean show)
     {
-        switch (direction)
+        if (show) label.show();
+        else label.hide();
+    }
+
+    void showStage(boolean show)
+    {
+        if (show)
         {
-            case NORTH: return neighbors[0];
-            case EAST: return neighbors[1];
-            case SOUTH: return neighbors[2];
-            case WEST: return neighbors[3];
-            default: return this;
+            if (stage == null)
+            {
+                stage = new Stage();
+                stage.setOnCloseRequest(event -> stage = null);
+            }
+            if (fullscreen) stage.setFullScreen(true);
+            stage.show();
         }
+        else stage.hide();
     }
 
-    void setNeighbors(Display north, Display east, Display south, Display west)
-    {
-        neighbors[0] = north;
-        neighbors[1] = east;
-        neighbors[2] = south;
-        neighbors[3] = west;
-    }
+    int getMaxX() { return maxX; }
+    int getMinX() { return minX; }
+    int getMaxY() { return maxY; }
+    int getMinY() { return minY; }
+    int getWidth() { return width; }
+    int getHeight() { return height; }
 }
