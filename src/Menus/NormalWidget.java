@@ -9,6 +9,7 @@ import java.util.ArrayList;
 class NormalWidget extends Widget
 {
     private Text text;
+    private ArrayList<Shape> shapes;
 
     /**
      * Coordinates for the rectangle.
@@ -16,7 +17,11 @@ class NormalWidget extends Widget
     NormalWidget(int posX, int posY, int width, int height)
     {
         super(posX, posY, width, height);
+
         text = new Text();
+        shapes = new ArrayList<>();
+        shapes.addAll(getRects());
+        shapes.add(text);
     }
 
     /**
@@ -38,11 +43,13 @@ class NormalWidget extends Widget
         text.setY(posY);
     }
 
+    @Override
+    void passTime() {
+
+    }
+
     ArrayList<Shape> getShapes()
     {
-        ArrayList<Shape> shapes = new ArrayList<>();
-        shapes.addAll(getRects());
-        shapes.add(text);
         return shapes;
     }
 }

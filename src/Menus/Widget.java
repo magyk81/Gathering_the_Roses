@@ -18,6 +18,7 @@ public abstract class Widget
 {
     // TODO: Replace rectangles with images
     private Rectangle rectMain, rectHover;
+    private ArrayList<Rectangle> rects;
     private Color colorMain, colorHover;
     private Widget neighbors[];
     private boolean hovered, initial;
@@ -31,21 +32,29 @@ public abstract class Widget
     {
         action = null;
         initial = false;
+
         this.posX = posX;
         this.posY = posY;
         this.width = width;
         this.height = height;
+
         neighbors = new Widget[4];
         for (int i = 0; i < neighbors.length; i++) neighbors[i] = null;
+
         rectMain = new Rectangle(posX, posY, width, height);
         /* The color and setFill stuff is just a placeholder for Widget aesthetics.
          * Should eventually be replaced with images. */
         colorMain = Color.RED;
         rectMain.setFill(colorMain);
+
         rectHover = new Rectangle(posX, posY, width, height);
         colorHover = Color.CYAN;
         rectHover.setFill(colorHover);
         rectHover.setVisible(false);
+
+        rects = new ArrayList<>();
+        rects.add(rectMain);
+        rects.add(rectHover);
     }
 
     HashSet<Rectangle> getRects()
@@ -64,6 +73,11 @@ public abstract class Widget
     abstract ArrayList<Shape> getShapes();
 
     abstract void setText(String string, Font font);
+
+    /**
+     * Called by MainGame every frame.
+     */
+    abstract void passTime();
 
     /**
      * Only needed for when using the Mouse, not a GamePad.
@@ -126,6 +140,10 @@ public abstract class Widget
     {
         posX = x;
         posY = y;
+        rectMain.setX(x);
+        rectMain.setY(y);
+        rectHover.setX(x);
+        rectHover.setY(y);
     }
 
     void setSize(int width, int height)
@@ -145,6 +163,9 @@ public abstract class Widget
         if (top) return posY;
         else return posY + height;
     }
+
+    int getWidth() { return width; }
+    int getHeight() { return height; }
 
     void setInitial() { initial = true; }
 
