@@ -7,6 +7,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -42,7 +43,7 @@ public class Mouse implements EventHandler<MouseEvent>
 
         else if (button == MouseButton.SECONDARY)
         {
-
+            //Toolkit.getDefaultToolkit().beep();
         }
         else if (button == MouseButton.MIDDLE)
         {
