@@ -229,6 +229,19 @@ public enum RaceEnum
                     return types;
                 }
             },
+    CLOWN
+            {
+                public HashSet<TypeEnum> getType(boolean subRace, AttributeEnum attribute)
+                {
+                    types.clear();
+                    if (subRace)
+                    {
+                        types.add(TypeEnum.DEMONIC);
+                        types.add(TypeEnum.SPELLCASTING);
+                    }
+                    return types;
+                }
+            },
     COCKATRICE      // 024
             {
                 public HashSet<TypeEnum> getType(boolean subRace, AttributeEnum attribute)
@@ -355,11 +368,8 @@ public enum RaceEnum
                 public HashSet<TypeEnum> getType(boolean subRace, AttributeEnum attribute)
                 {
                     types.clear();
-                    if (subRace)
-                    {
-                        types.add(TypeEnum.WARRING);
-                        types.add(TypeEnum.BOTANIC);
-                    }
+                    types.add(TypeEnum.BOTANIC);
+                    if (subRace) types.add(TypeEnum.ANGELIC);
                     return types;
                 }
             },
