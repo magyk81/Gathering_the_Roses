@@ -27,4 +27,9 @@ public class TrayWidget extends Widget
     void setText(String string, Font font) {
 
     }
+
+    @Override
+    void passTime() {
+
+    }
 }

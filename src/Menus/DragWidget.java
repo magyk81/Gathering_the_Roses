@@ -33,6 +33,11 @@ public class DragWidget extends Widget
 
     }
 
+    @Override
+    void passTime() {
+
+    }
+
     /**
      * Only needed for Mouse user, not GamePad users.
      * Call this every time the Mouse is moved while being held down.
