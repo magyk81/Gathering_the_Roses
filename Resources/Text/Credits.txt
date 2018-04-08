@@ -9,7 +9,7 @@ Fonts:
 "Augusta" by Dieter Steffmann (www.dafont.com)
 "Aihara Hude Moji Kaisho" by Aihara Kanata (www.freejapanesefont.com)
 "Morpheus" by Kiwi Media (www.dafont.com)
-"Evenescent" by Aeryn (www.dafont.com)
+"Evanescent" by Aeryn (www.dafont.com)
 
 Language Codes:
 https://msdn.microsoft.com/en-us/library/ms533052%28v=vs.85%29.aspx
